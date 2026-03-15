@@ -1,0 +1,95 @@
+name: 'Barry Security Review'
+description: 'AI-powered security code review using Gemini with autofix suggestions'
+author: 'Cosmin Cojocar'
+
+branding:
+  icon: 'shield'
+  color: 'blue'
+
+inputs:
+  google-api-key:
+    description: 'Google API key for Gemini'
+    required: true
+  github-token:
+    description: 'GitHub token for API access'
+    required: true
+    default: ${{ github.token }}
+  gemini-model:
+    description: 'Gemini model for security scanning'
+    required: false
+    default: 'gemini-3.1-pro'
+  validator-model:
+    description: 'Gemini model for finding validation (cheaper model recommended)'
+    required: false
+    default: 'gemini-3.1-flash'
+  autofix-model:
+    description: 'Gemini model for generating autofixes'
+    required: false
+    default: 'gemini-3.1-pro'
+  comment-pr:
+    description: 'Whether to post review comments on the PR'
+    required: false
+    default: 'true'
+  upload-results:
+    description: 'Whether to upload results as an artifact'
+    required: false
+    default: 'true'
+  exclude-directories:
+    description: 'Comma-separated list of directories to exclude from scanning'
+    required: false
+  timeout:
+    description: 'Timeout in minutes for the entire action'
+    required: false
+    default: '20'
+  run-every-commit:
+    description: 'Run on every commit instead of using cache deduplication'
+    required: false
+    default: 'false'
+  enable-llm-filtering:
+    description: 'Enable LLM-based false positive filtering (validator agent)'
+    required: false
+    default: 'true'
+  enable-autofix:
+    description: 'Enable LLM-based autofix generation for findings'
+    required: false
+    default: 'true'
+  false-positive-filtering-instructions:
+    description: 'Path to custom false positive filtering instructions file'
+    required: false
+  custom-security-scan-instructions:
+    description: 'Path to custom security scan instructions file'
+    required: false
+  output-format:
+    description: 'Output format for results file: json or sarif'
+    required: false
+    default: 'json'
+  exceptions-file:
+    description: 'Path to a JSON file defining findings to exclude (see docs)'
+    required: false
+
+outputs:
+  findings-count:
+    description: 'Number of security findings detected'
+  results-file:
+    description: 'Path to the results file (JSON or SARIF depending on output-format)'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  env:
+    GOOGLE_API_KEY: ${{ inputs.google-api-key }}
+    GITHUB_TOKEN: ${{ inputs.github-token }}
+    INPUT_GEMINI-MODEL: ${{ inputs.gemini-model }}
+    INPUT_VALIDATOR-MODEL: ${{ inputs.validator-model }}
+    INPUT_AUTOFIX-MODEL: ${{ inputs.autofix-model }}
+    INPUT_COMMENT-PR: ${{ inputs.comment-pr }}
+    INPUT_UPLOAD-RESULTS: ${{ inputs.upload-results }}
+    INPUT_EXCLUDE-DIRECTORIES: ${{ inputs.exclude-directories }}
+    INPUT_TIMEOUT: ${{ inputs.timeout }}
+    INPUT_RUN-EVERY-COMMIT: ${{ inputs.run-every-commit }}
+    INPUT_ENABLE-LLM-FILTERING: ${{ inputs.enable-llm-filtering }}
+    INPUT_ENABLE-AUTOFIX: ${{ inputs.enable-autofix }}
+    INPUT_FALSE-POSITIVE-FILTERING-INSTRUCTIONS: ${{ inputs.false-positive-filtering-instructions }}
+    INPUT_CUSTOM-SECURITY-SCAN-INSTRUCTIONS: ${{ inputs.custom-security-scan-instructions }}
+    INPUT_EXCEPTIONS-FILE: ${{ inputs.exceptions-file }}
+    INPUT_OUTPUT-FORMAT: ${{ inputs.output-format }}

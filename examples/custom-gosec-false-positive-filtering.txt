@@ -1,0 +1,15 @@
+Context about this codebase to help identify false positives when scanning with gosec (github.com/securego/gosec):
+
+- Variables named "token", "secret", or "key" that hold configuration keys or environment variable names (not literal values) are not credentials. Test files using placeholder strings like "test-secret" or "dummy-api-key" are not real credentials and should not be flagged.
+- The unsafe package is used deliberately in the serialization layer for zero-copy []byte <-> string conversions in hot paths. These are reviewed and intentional; flag only unsafe usage outside of internal/serialize/.
+- Errors from defer statements on Close() calls (e.g., defer f.Close()) are intentionally unchecked per Go convention. Do not flag these.
+- HTTP requests built from URLs read out of validated configuration structs (not direct user input) are safe. Flag only cases where the URL originates from an HTTP request parameter or form field.
+- Commands executed in cmd/ and scripts/ are CLI tooling invoked by developers, not user-facing request handlers. These should not be flagged as command injection unless arguments are derived from untrusted input.
+- Directories and files created under the cache/ and tmp/ subdirectories intentionally use 0755/0644. The stricter 0700/0600 requirement does not apply to these ephemeral working directories.
+- File paths constructed from configuration values loaded at startup (not from HTTP request parameters) are not taint inputs. Flag only paths that can be influenced by an end user at runtime.
+- MD5 is used for cache key generation and non-cryptographic checksums only (never for password hashing or signatures). SHA1 appears in Git object ID handling where the algorithm is mandated by the Git protocol. Neither usage is a cryptographic security control.
+- TLS configuration in test helpers (internal/*_test.go) intentionally sets InsecureSkipVerify to simplify local test setup. This is acceptable in test code; flag only production TLS configurations.
+- math/rand is used exclusively for non-security purposes such as load-balancing jitter and shuffle operations in tests. crypto/rand is used wherever randomness affects security (tokens, nonces).
+- Shell commands assembled in internal/runner/ always pass arguments as discrete exec.Command() args slices, never through a shell interpreter. The taint analysis may still flag these; verify whether a shell (sh -c) is actually involved before reporting.
+- User-supplied filenames are sanitized with filepath.Clean and validated against an allowlist of permitted directories before any file operation. Findings here require confirming the sanitization is bypassed.
+- All HTML output goes through html/template, which escapes by default. Flag only code paths that use text/template or explicit template.HTML casts with untrusted data.

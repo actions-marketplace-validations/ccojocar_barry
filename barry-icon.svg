@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#D0112B"/>
+      <stop offset="100%" style="stop-color:#7A0818"/>
+    </linearGradient>
+    <linearGradient id="panelGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1C2340"/>
+      <stop offset="100%" style="stop-color:#0D1226"/>
+    </linearGradient>
+    <linearGradient id="barrelGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#A07030"/>
+      <stop offset="50%" style="stop-color:#D4A050"/>
+      <stop offset="100%" style="stop-color:#A07030"/>
+    </linearGradient>
+    <filter id="shieldShadow">
+      <feDropShadow dx="0" dy="8" stdDeviation="14" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+    <filter id="dogGlow">
+      <feDropShadow dx="0" dy="2" stdDeviation="6" flood-color="#ffffff" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Shield -->
+  <path d="M256 22 L464 108 L464 294 Q464 428 256 494 Q48 428 48 294 L48 108 Z"
+        fill="url(#shieldGrad)" filter="url(#shieldShadow)"/>
+  <path d="M256 58 L436 136 L436 292 Q436 406 256 464 Q76 406 76 292 L76 136 Z"
+        fill="url(#panelGrad)"/>
+  <!-- Shield rim -->
+  <path d="M256 22 L464 108 L464 294 Q464 428 256 494 Q48 428 48 294 L48 108 Z"
+        fill="none" stroke="white" stroke-width="3" opacity="0.2"/>
+
+  <!-- Swiss cross -->
+  <rect x="238" y="76" width="36" height="11" rx="2" fill="white" opacity="0.88"/>
+  <rect x="250" y="64" width="11" height="36" rx="2" fill="white" opacity="0.88"/>
+
+  <!-- ═══════════════════════════════════════
+       SAINT BERNARD SILHOUETTE — profile right
+       Traced to match breed anatomy:
+       blocky head, wide muzzle, pendant ear,
+       deep chest, level back, heavy tail
+       ═══════════════════════════════════════ -->
+  <g filter="url(#dogGlow)">
+
+    <!-- Main body + head silhouette, single closed path -->
+    <path fill="white" opacity="0.95" d="
+      M 408,246
+      C 414,248 422,256 422,266
+      C 422,278 416,288 406,294
+      C 398,300 388,302 378,302
+      C 370,302 362,300 356,296
+
+      C 348,310 340,326 336,348
+      C 332,362 330,376 330,390
+      L 330,418
+      C 330,424 326,428 320,428
+      L 304,428
+      C 298,428 294,424 294,418
+      L 294,392
+      C 280,394 264,396 248,396
+      C 232,396 218,394 204,392
+      L 204,418
+      C 204,424 200,428 194,428
+      L 178,428
+      C 172,428 168,424 168,418
+      L 168,390
+      C 158,384 148,374 140,362
+      C 130,346 124,326 122,308
+
+      C 114,302 106,290 102,274
+      C 98,258 100,238 108,220
+      C 112,210 120,200 130,196
+      C 124,206 122,220 124,234
+      C 126,244 132,252 140,256
+
+      C 148,248 152,238 152,226
+      C 152,210 144,196 132,188
+      C 140,178 152,172 164,170
+      C 168,170 172,170 176,172
+      C 176,168 178,164 182,162
+      C 188,158 196,160 200,166
+      C 204,158 212,154 220,156
+      C 228,158 234,166 234,174
+      C 242,168 252,166 262,168
+      C 272,170 280,178 282,188
+
+      C 292,184 302,182 312,182
+      C 322,182 332,184 340,188
+      C 344,180 350,174 358,172
+      C 362,170 366,170 370,172
+
+      C 374,164 380,158 388,156
+      C 394,154 400,156 404,160
+      C 408,152 416,148 424,150
+      C 432,152 436,160 434,168
+
+      C 438,172 440,178 440,184
+      C 440,196 432,208 420,214
+      C 416,216 412,218 408,218
+
+      C 410,224 410,232 408,240
+      Z
+    "/>
+
+    <!-- Ear — pendant, hanging alongside head -->
+    <path fill="#C8C0B0" opacity="0.82" d="
+      M 356,178
+      C 360,172 368,168 376,170
+      C 384,172 390,180 390,188
+      C 390,196 386,204 380,210
+      C 374,216 366,220 358,220
+      C 352,220 346,218 342,214
+      C 348,208 352,200 354,192
+      C 356,186 356,182 356,178
+      Z
+    "/>
+
+    <!-- Rescue barrel on neck strap -->
+    <!-- Strap -->
+    <path d="M 338,232 Q 328,222 316,220 Q 306,220 298,226"
+          stroke="#C8A050" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <!-- Barrel body -->
+    <rect x="282" y="222" width="34" height="20" rx="7" fill="url(#barrelGrad)"/>
+    <!-- Stave lines -->
+    <line x1="282" y1="226" x2="316" y2="226" stroke="#7A5020" stroke-width="1.2" opacity="0.8"/>
+    <line x1="282" y1="230" x2="316" y2="230" stroke="#7A5020" stroke-width="1.2" opacity="0.8"/>
+    <line x1="282" y1="234" x2="316" y2="234" stroke="#7A5020" stroke-width="1.2" opacity="0.8"/>
+    <line x1="282" y1="238" x2="316" y2="238" stroke="#7A5020" stroke-width="1.2" opacity="0.8"/>
+    <!-- Hoops -->
+    <rect x="282" y="222" width="34" height="3.5" rx="1.5" fill="#5A3810"/>
+    <rect x="282" y="238" width="34" height="3.5" rx="1.5" fill="#5A3810"/>
+    <!-- Bung -->
+    <circle cx="299" cy="232" r="3" fill="#7A5020"/>
+
+  </g>
+
+  <!-- Magnifying glass — bottom right -->
+  <circle cx="388" cy="396" r="36" fill="none" stroke="white" stroke-width="8" opacity="0.88"/>
+  <circle cx="388" cy="396" r="27" fill="#1C2340" opacity="0.85"/>
+  <!-- Lens glint -->
+  <path d="M 376,384 Q 382,378 390,380 Q 385,388 378,392 Z" fill="white" opacity="0.18"/>
+  <!-- Code symbol -->
+  <text x="388" y="403" font-family="'Courier New',Courier,monospace" font-size="19" font-weight="bold"
+        fill="white" text-anchor="middle" opacity="0.92">&lt;/&gt;</text>
+  <!-- Handle -->
+  <line x1="412" y1="420" x2="438" y2="446" stroke="white" stroke-width="10" stroke-linecap="round" opacity="0.88"/>
+</svg>
