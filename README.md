@@ -1,6 +1,6 @@
 # Barry
 
-<img src="barry-icon.png" alt="Barry icon — Saint Bernard dog on a security shield" width="96"/>
+<img src="barry-icon.svg" alt="Barry icon — Saint Bernard dog on a security shield" width="96"/>
 
 AI-powered security code review for GitHub Pull Requests with autofix suggestions, powered by Google Gemini and [ADK-Go](https://google.github.io/adk-docs/).
 
