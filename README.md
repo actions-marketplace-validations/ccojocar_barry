@@ -1,15 +1,21 @@
 # Barry
 
-<img src="barry-icon.svg" alt="Barry icon — Saint Bernard dog on a security shield" width="96"/>
+<img src="barry-icon.svg" alt="Barry icon — Saint Bernard dog on a security shield" width="200"/>
 
-AI-powered security code review for GitHub Pull Requests with autofix suggestions, powered by Google Gemini and [ADK-Go](https://google.github.io/adk-docs/).
+AI-powered security code review for GitHub Pull Requests with autofix
+suggestions, powered by Google Gemini and
+[ADK-Go](https://google.github.io/adk-docs/).
 
-Barry is a GitHub Action that automatically scans your PRs for security vulnerabilities using a multi-agent pipeline:
+Barry is a GitHub Action that automatically scans your PRs for security
+vulnerabilities using a multi-agent pipeline:
 
 1. **Scanner Agent** — Analyzes the PR diff with Gemini for security issues
-2. **Hard Filter Agent** — Removes obvious false positives using deterministic regex rules
-3. **Validator Agent** *(optional)* — Re-examines each finding with a second LLM pass to further reduce false positives
-4. **Autofixer Agent** *(optional)* — Generates idiomatic code fixes for confirmed vulnerabilities
+2. **Hard Filter Agent** — Removes obvious false positives using deterministic
+   regex rules
+3. **Validator Agent** *(optional)* — Re-examines each finding with a second LLM
+   pass to further reduce false positives
+4. **Autofixer Agent** *(optional)* — Generates idiomatic code fixes for
+   confirmed vulnerabilities
 
 ## Table of Contents
 
@@ -59,7 +65,7 @@ jobs:
 | `google-api-key` | Google API key for Gemini | *required* |
 | `github-token` | GitHub token for PR access | *required* |
 | `gemini-model` | Model for scanning | `gemini-3.1-pro-preview` |
-| `validator-model` | Model for validation | `gemini-3-flash-preview` |
+| `validator-model` | Model for validation | `gemini-3.1-flash-preview` |
 | `autofix-model` | Model for generating autofixes | `gemini-3.1-pro-preview` |
 | `comment-pr` | Post findings as PR comments | `true` |
 | `upload-results` | Upload results as artifact | `true` |
@@ -92,7 +98,9 @@ jobs:
 └────────────────┘     └────────────────┘     └────────────────┘     └────────────────┘
 ```
 
-The Scanner and Hard Filter run as a **sequential agent** in ADK-Go. The Validator and Autofixer run separately per-finding when `enable-llm-filtering` and `enable-autofix` are true, respectively.
+The Scanner and Hard Filter run as a **sequential agent** in ADK-Go. The
+Validator and Autofixer run separately per-finding when `enable-llm-filtering`
+and `enable-autofix` are true, respectively.
 
 ### Hard Filter Rules
 
@@ -128,7 +136,10 @@ Reference it in your workflow:
     custom-security-scan-instructions: .github/security-scan-instructions.txt
 ```
 
-See [examples/custom-gosec-security-scan-instructions.txt](examples/custom-gosec-security-scan-instructions.txt) for a full example targeting the [securego/gosec](https://github.com/securego/gosec) project.
+See [examples/custom-gosec-security-scan-instructions.txt][gosec-scan-ex] for
+a full example targeting the [securego/gosec][gosec] project.
+
+[gosec-scan-ex]: examples/custom-gosec-security-scan-instructions.txt
 
 ### Custom False Positive Filtering
 
@@ -149,11 +160,17 @@ Reference it in your workflow:
     false-positive-filtering-instructions: .github/false-positive-rules.txt
 ```
 
-See [examples/custom-gosec-false-positive-filtering.txt](examples/custom-gosec-false-positive-filtering.txt) for a full example targeting the [securego/gosec](https://github.com/securego/gosec) project.
+See [examples/custom-gosec-false-positive-filtering.txt][gosec-fp-ex] for a
+full example targeting the [securego/gosec][gosec] project.
+
+[gosec-fp-ex]: examples/custom-gosec-false-positive-filtering.txt
+[gosec]: https://github.com/securego/gosec
 
 ## GitHub Security Center Integration
 
-Barry can produce [SARIF](https://sarifweb.azurewebsites.net/) (Static Analysis Results Interchange Format) output, which integrates directly with **GitHub Code Scanning** and the **Security** tab.
+Barry can produce [SARIF](https://sarifweb.azurewebsites.net/) (Static Analysis
+Results Interchange Format) output, which integrates directly with **GitHub Code
+Scanning** and the **Security** tab.
 
 Set `output-format: sarif` to switch from the default JSON output to SARIF.
 
@@ -190,7 +207,8 @@ jobs:
           sarif_file: ${{ steps.barry.outputs.results-file }}
 ```
 
-Once configured, findings appear in the repository's **Security → Code scanning alerts** tab and in pull request annotations.
+Once configured, findings appear in the repository's **Security → Code scanning
+alerts** tab and in pull request annotations.
 
 ## Development
 
@@ -224,7 +242,8 @@ You can run Barry on your local machine against any open PR on GitHub.
 **Requirements:**
 - Go 1.26+ installed
 - A [Google API key](https://aistudio.google.com/apikey) with Gemini access
-- A [GitHub personal access token](https://github.com/settings/tokens) with `repo` scope (for private repos) or `public_repo` (for public repos)
+- A [GitHub personal access token](https://github.com/settings/tokens) with
+  `repo` scope (for private repos) or `public_repo` (for public repos)
 - An existing pull request URL (e.g., `https://github.com/owner/repo/pull/123`)
 
 **1. Build the binary:**
@@ -235,7 +254,8 @@ go build -o barry ./main.go
 
 **2. Create the event payload for your PR:**
 
-Create `event.json` with the PR number and head commit SHA in the format Barry expects:
+Create `event.json` with the PR number and head commit SHA in the format Barry
+expects:
 
 ```json
 {
@@ -271,7 +291,7 @@ GITHUB_EVENT_PATH="./event.json" \
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `INPUT_GEMINI-MODEL` | Gemini model for scanning | `gemini-3.1-pro-preview` |
-| `INPUT_VALIDATOR-MODEL` | Gemini model for validation | `gemini-3-flash-preview` |
+| `INPUT_VALIDATOR-MODEL` | Gemini model for validation | `gemini-3.1-flash-preview` |
 | `INPUT_AUTOFIX-MODEL` | Gemini model for generating autofixes | `gemini-3.1-pro-preview` |
 | `INPUT_COMMENT-PR` | Post findings as PR review comments | `true` |
 | `INPUT_ENABLE-LLM-FILTERING` | Use a second LLM pass to validate findings | `true` |
@@ -294,7 +314,8 @@ INPUT_COMMENT-PR="false" \
 ./barry
 ```
 
-Results are printed to stdout (JSON) and written to a temp file. Set `INPUT_OUTPUT-FORMAT=sarif` for SARIF output.
+Results are printed to stdout (JSON) and written to a temp file. Set
+`INPUT_OUTPUT-FORMAT=sarif` for SARIF output.
 
 ## License
 

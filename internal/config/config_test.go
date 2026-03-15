@@ -103,8 +103,8 @@ func TestLoad_Defaults(t *testing.T) {
 	if cfg.ScannerModel != "gemini-3.1-pro-preview" {
 		t.Errorf("default ScannerModel = %q, want gemini-3.1-pro-preview", cfg.ScannerModel)
 	}
-	if cfg.ValidatorModel != "gemini-3-flash-preview" {
-		t.Errorf("default ValidatorModel = %q, want gemini-3-flash-preview", cfg.ValidatorModel)
+	if cfg.ValidatorModel != "gemini-3.1-flash-preview" {
+		t.Errorf("default ValidatorModel = %q, want gemini-3.1-flash-preview", cfg.ValidatorModel)
 	}
 	if cfg.AutofixModel != "gemini-3.1-pro-preview" {
 		t.Errorf("default AutofixModel = %q, want gemini-3.1-pro-preview", cfg.AutofixModel)

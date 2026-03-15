@@ -17,15 +17,15 @@ inputs:
   gemini-model:
     description: 'Gemini model for security scanning'
     required: false
-    default: 'gemini-3.1-pro'
+    default: 'gemini-3.1-pro-preview'
   validator-model:
     description: 'Gemini model for finding validation (cheaper model recommended)'
     required: false
-    default: 'gemini-3.1-flash'
+    default: 'gemini-3.1-flash-preview'
   autofix-model:
     description: 'Gemini model for generating autofixes'
     required: false
-    default: 'gemini-3.1-pro'
+    default: 'gemini-3.1-pro-preview'
   comment-pr:
     description: 'Whether to post review comments on the PR'
     required: false

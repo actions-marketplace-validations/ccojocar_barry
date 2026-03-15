@@ -58,7 +58,7 @@ type Config struct {
 func Load() (*Config, error) {
 	cfg := &Config{
 		ScannerModel:    envOrDefault("INPUT_GEMINI-MODEL", "gemini-3.1-pro-preview"),
-		ValidatorModel:  envOrDefault("INPUT_VALIDATOR-MODEL", "gemini-3-flash-preview"),
+		ValidatorModel:  envOrDefault("INPUT_VALIDATOR-MODEL", "gemini-3.1-flash-preview"),
 		AutofixModel:    envOrDefault("INPUT_AUTOFIX-MODEL", "gemini-3.1-pro-preview"),
 		CommentPR:       envBool("INPUT_COMMENT-PR", true),
 		UploadResults:   envBool("INPUT_UPLOAD-RESULTS", true),

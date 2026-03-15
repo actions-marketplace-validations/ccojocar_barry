@@ -11,16 +11,22 @@ Files modified:
 {{.FileList}}
 {{.DiffSection}}
 
-OBJECTIVE:
-Perform a security-focused code review to identify HIGH-CONFIDENCE security vulnerabilities that could have real exploitation potential. This is not a general code review - focus ONLY on security implications newly added by this PR. Do not comment on existing security concerns.
+OBJECTIVE: Perform a security-focused code review to identify HIGH-CONFIDENCE
+security vulnerabilities that could have real exploitation potential. This is
+not a general code review - focus ONLY on security implications newly added by
+this PR. Do not comment on existing security concerns.
 
 CRITICAL INSTRUCTIONS:
-1. MINIMIZE FALSE POSITIVES: Only flag issues where you're >80% confident of actual exploitability
+1. MINIMIZE FALSE POSITIVES: Only flag issues where you're >80% confident of
+   actual exploitability
 2. AVOID NOISE: Skip theoretical issues, style concerns, or low-impact findings
-3. FOCUS ON IMPACT: Prioritize vulnerabilities that could lead to unauthorized access, data breaches, or system compromise
+3. FOCUS ON IMPACT: Prioritize vulnerabilities that could lead to unauthorized
+   access, data breaches, or system compromise
 4. EXCLUSIONS: Do NOT report the following issue types:
-   - Denial of Service (DOS) vulnerabilities, even if they allow service disruption
-   - Secrets or sensitive data stored on disk (these are handled by other processes)
+   - Denial of Service (DOS) vulnerabilities, even if they allow service
+     disruption
+   - Secrets or sensitive data stored on disk (these are handled by other
+     processes)
    - Rate limiting or resource exhaustion issues
 
 SECURITY CATEGORIES TO EXAMINE:
@@ -62,7 +68,8 @@ SECURITY CATEGORIES TO EXAMINE:
 {{.CustomCategories}}
 
 Additional notes:
-- Even if something is only exploitable from the local network, it can still be a HIGH severity issue
+- Even if something is only exploitable from the local network, it can still be
+  a HIGH severity issue
 
 ANALYSIS METHODOLOGY:
 
@@ -85,8 +92,10 @@ Phase 3 - Vulnerability Assessment:
 - Identify injection points and unsafe deserialization
 
 SEVERITY GUIDELINES:
-- **HIGH**: Directly exploitable vulnerabilities leading to RCE, data breach, or authentication bypass
-- **MEDIUM**: Vulnerabilities requiring specific conditions but with significant impact
+- **HIGH**: Directly exploitable vulnerabilities leading to RCE, data breach, or
+  authentication bypass
+- **MEDIUM**: Vulnerabilities requiring specific conditions but with significant
+  impact
 - **LOW**: Defense-in-depth issues or lower-impact vulnerabilities
 
 CONFIDENCE SCORING:
@@ -95,14 +104,18 @@ CONFIDENCE SCORING:
 - 0.7-0.8: Suspicious pattern requiring specific conditions to exploit
 - Below 0.7: Don't report (too speculative)
 
-FINAL REMINDER:
-Focus on HIGH and MEDIUM findings only. Better to miss some theoretical issues than flood the report with false positives. Each finding should be something a security engineer would confidently raise in a PR review.
+FINAL REMINDER: Focus on HIGH and MEDIUM findings only. Better to miss some
+theoretical issues than flood the report with false positives. Each finding
+should be something a security engineer would confidently raise in a PR review.
 
 IMPORTANT EXCLUSIONS - DO NOT REPORT:
 - Denial of Service (DOS) vulnerabilities or resource exhaustion attacks
 - Secrets/credentials stored on disk (these are managed separately)
-- Rate limiting concerns or service overload scenarios. Services do not need to implement rate limiting.
+- Rate limiting concerns or service overload scenarios. Services do not need to
+  implement rate limiting.
 - Memory consumption or CPU exhaustion issues.
-- Lack of input validation on non-security-critical fields. If there isn't a proven problem from a lack of input validation, don't report it.
+- Lack of input validation on non-security-critical fields. If there isn't a
+  proven problem from a lack of input validation, don't report it.
 
-Begin your analysis now. Use the repository exploration tools to understand the codebase context, then analyze the PR changes for security implications.
+Begin your analysis now. Use the repository exploration tools to understand the
+codebase context, then analyze the PR changes for security implications.
