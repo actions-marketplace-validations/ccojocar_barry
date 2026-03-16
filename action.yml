@@ -17,15 +17,15 @@ inputs:
   gemini-model:
     description: 'Gemini model for security scanning'
     required: false
-    default: 'gemini-3.1-pro-preview'
+    default: 'gemini-3-flash-preview'
   validator-model:
     description: 'Gemini model for finding validation (cheaper model recommended)'
     required: false
-    default: 'gemini-3.1-flash-preview'
+    default: 'gemini-3-flash-preview'
   autofix-model:
     description: 'Gemini model for generating autofixes'
     required: false
-    default: 'gemini-3.1-pro-preview'
+    default: 'gemini-3-flash-preview'
   comment-pr:
     description: 'Whether to post review comments on the PR'
     required: false
@@ -66,6 +66,9 @@ inputs:
   exceptions-file:
     description: 'Path to a JSON file defining findings to exclude (see docs)'
     required: false
+  output-dir:
+    description: 'Directory to write results file (defaults to $GITHUB_WORKSPACE)'
+    required: false
 
 outputs:
   findings-count:
@@ -93,3 +96,4 @@ runs:
     INPUT_CUSTOM-SECURITY-SCAN-INSTRUCTIONS: ${{ inputs.custom-security-scan-instructions }}
     INPUT_EXCEPTIONS-FILE: ${{ inputs.exceptions-file }}
     INPUT_OUTPUT-FORMAT: ${{ inputs.output-format }}
+    INPUT_OUTPUT-DIR: ${{ inputs.output-dir }}

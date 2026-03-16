@@ -57,9 +57,9 @@ type Config struct {
 // Load reads configuration from environment variables and the GitHub event payload.
 func Load() (*Config, error) {
 	cfg := &Config{
-		ScannerModel:    envOrDefault("INPUT_GEMINI-MODEL", "gemini-3.1-pro-preview"),
-		ValidatorModel:  envOrDefault("INPUT_VALIDATOR-MODEL", "gemini-3.1-flash-preview"),
-		AutofixModel:    envOrDefault("INPUT_AUTOFIX-MODEL", "gemini-3.1-pro-preview"),
+		ScannerModel:    envOrDefault("INPUT_GEMINI-MODEL", "gemini-3-flash-preview"),
+		ValidatorModel:  envOrDefault("INPUT_VALIDATOR-MODEL", "gemini-3-flash-preview"),
+		AutofixModel:    envOrDefault("INPUT_AUTOFIX-MODEL", "gemini-3-flash-preview"),
 		CommentPR:       envBool("INPUT_COMMENT-PR", true),
 		UploadResults:   envBool("INPUT_UPLOAD-RESULTS", true),
 		RunEveryCommit:  envBool("INPUT_RUN-EVERY-COMMIT", false),
@@ -127,6 +127,11 @@ func Load() (*Config, error) {
 	}
 
 	cfg.ExceptionsFile = os.Getenv("INPUT_EXCEPTIONS-FILE")
+
+	// Default output directory to $GITHUB_WORKSPACE so results are accessible
+	// from the host runner (Docker containers write to /tmp by default, which
+	// is not visible outside the container).
+	cfg.OutputDir = envOrDefault("INPUT_OUTPUT-DIR", os.Getenv("GITHUB_WORKSPACE"))
 
 	return cfg, nil
 }

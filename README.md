@@ -64,9 +64,9 @@ jobs:
 |-------|-------------|---------|
 | `google-api-key` | Google API key for Gemini | *required* |
 | `github-token` | GitHub token for PR access | *required* |
-| `gemini-model` | Model for scanning | `gemini-3.1-pro-preview` |
-| `validator-model` | Model for validation | `gemini-3.1-flash-preview` |
-| `autofix-model` | Model for generating autofixes | `gemini-3.1-pro-preview` |
+| `gemini-model` | Model for scanning | `gemini-3-flash-preview` |
+| `validator-model` | Model for validation | `gemini-3-flash-preview` |
+| `autofix-model` | Model for generating autofixes | `gemini-3-flash-preview` |
 | `comment-pr` | Post findings as PR comments | `true` |
 | `upload-results` | Upload results as artifact | `true` |
 | `enable-llm-filtering` | Use LLM to validate findings | `true` |
@@ -77,6 +77,7 @@ jobs:
 | `false-positive-filtering-instructions` | Path to custom filtering instructions file | `""` |
 | `custom-security-scan-instructions` | Path to custom scan instructions file | `""` |
 | `output-format` | Output format for results file: `json` or `sarif` | `json` |
+| `output-dir` | Directory to write the results file | `$GITHUB_WORKSPACE` |
 | `exceptions-file` | Path to a JSON file defining findings to exclude | `""` |
 
 ## Outputs
@@ -290,15 +291,16 @@ GITHUB_EVENT_PATH="./event.json" \
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `INPUT_GEMINI-MODEL` | Gemini model for scanning | `gemini-3.1-pro-preview` |
-| `INPUT_VALIDATOR-MODEL` | Gemini model for validation | `gemini-3.1-flash-preview` |
-| `INPUT_AUTOFIX-MODEL` | Gemini model for generating autofixes | `gemini-3.1-pro-preview` |
+| `INPUT_GEMINI-MODEL` | Gemini model for scanning | `gemini-3-flash-preview` |
+| `INPUT_VALIDATOR-MODEL` | Gemini model for validation | `gemini-3-flash-preview` |
+| `INPUT_AUTOFIX-MODEL` | Gemini model for generating autofixes | `gemini-3-flash-preview` |
 | `INPUT_COMMENT-PR` | Post findings as PR review comments | `true` |
 | `INPUT_ENABLE-LLM-FILTERING` | Use a second LLM pass to validate findings | `true` |
 | `INPUT_ENABLE-AUTOFIX` | Use an LLM pass to generate autofixes | `true` |
 | `INPUT_EXCLUDE-DIRECTORIES` | Comma-separated dirs to skip | `""` |
 | `INPUT_TIMEOUT` | Timeout in minutes | `20` |
 | `INPUT_OUTPUT-FORMAT` | `json` or `sarif` | `json` |
+| `INPUT_OUTPUT-DIR` | Directory to write the results file | `$GITHUB_WORKSPACE` |
 | `INPUT_EXCEPTIONS-FILE` | Path to a JSON exceptions file | `""` |
 | `INPUT_FALSE-POSITIVE-FILTERING-INSTRUCTIONS` | Path to custom filtering instructions | `""` |
 | `INPUT_CUSTOM-SECURITY-SCAN-INSTRUCTIONS` | Path to custom scan instructions | `""` |
