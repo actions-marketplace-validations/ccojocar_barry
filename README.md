@@ -41,7 +41,7 @@ vulnerabilities using a multi-agent pipeline:
 ```yaml
 name: Security Review
 on:
-  pull_request:
+  pull_request_target:
     types: [opened, synchronize]
 
 permissions:
@@ -51,12 +51,29 @@ permissions:
 jobs:
   security-review:
     runs-on: ubuntu-latest
+    environment: security-review
     steps:
       - uses: cosmin/barry@v1
         with:
           google-api-key: ${{ secrets.GOOGLE_API_KEY }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
+
+> **Why `pull_request_target` and the `security-review` environment?**
+>
+> Barry needs a `GOOGLE_API_KEY` secret to call Gemini. With a plain
+> `pull_request` trigger, GitHub does **not** expose repository secrets
+> to workflows triggered by fork PRs — so Barry would fail on any
+> external contribution.
+>
+> `pull_request_target` runs in the context of the **base** branch and
+> has access to the repository's secrets. However, because it runs
+> trusted workflow code against potentially untrusted PR content, it
+> introduces a security risk. The `security-review`
+> [environment](https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment)
+> acts as a gate: configure it with **required reviewers** so that a
+> maintainer must approve each run before secrets are exposed to the
+> workflow.
 
 ## Inputs
 
@@ -180,7 +197,7 @@ Set `output-format: sarif` to switch from the default JSON output to SARIF.
 ```yaml
 name: Security Review
 on:
-  pull_request:
+  pull_request_target:
     types: [opened, synchronize]
 
 permissions:
@@ -191,6 +208,7 @@ permissions:
 jobs:
   security-review:
     runs-on: ubuntu-latest
+    environment: security-review
     steps:
       - uses: actions/checkout@v4
 
